@@ -1,0 +1,65 @@
+{
+  "api_url": "https://api.example.com",
+  "api_docs": "https://docs.api.example.com",
+  "culture": "en-US",
+  "production": false,
+  "version": "1.0.0",
+  "isServed": true,
+  "isTemplate": false,
+  "auth_settings": {
+    "authority": "https://kc.lefterisrentas.dev",
+    "realm": "SvelteAuthExample",
+    "client_id": "svelte-auth-example",
+    "redirect_uri": "/auth-callback",
+    "post_logout_redirect_uri": "/logged-out",
+    "response_type": "code",
+    "scope": "openid profile email api offline_access",
+    "silent_redirect_uri": "/auth-renew",
+    "automaticSilentRenew": true,
+    "accessTokenExpiringNotificationTime": 60,
+    "monitorSession": true,
+    "revokeAccessTokenOnSignout": true,
+    "filterProtocolClaims": true,
+    "loadUserInfo": true,
+    "extraQueryParams": {}
+  },
+  "features": {
+    "enableNewHeader": true,
+    "enableDarkMode": true,
+    "enableBetaFeatures": false,
+    "enableAdvancedLogging": false,
+    "enableConfigDebugger": true
+  },
+  "branding": {
+    "appName": "Svelte Components Demo",
+    "appLogo": "/favicon.png",
+    "appLogoAlt": "Svelte Components",
+    "primaryColor": "#ff3e00",
+    "secondaryColor": "#676778",
+    "theme": "auto",
+    "cssVariables": {
+      "--primary-color": "#ff3e00",
+      "--secondary-color": "#676778"
+    }
+  },
+  "environment": {
+    "development": {
+      "api_url": "http://localhost:3000",
+      "production": false,
+      "auth_settings": {
+        "authority": "https://kc.lefterisrentas.dev"
+      }
+    },
+    "production": {
+      "api_url": "https://api.production.com",
+      "production": true
+    }
+  },
+  "app": {
+    "title": "Svelte Components Library Demo",
+    "description": "Demonstration of Svelte.Config and Svelte.Auth integration",
+    "maxRetries": 3,
+    "timeout": 10000,
+    "enableAnalytics": false
+  }
+}

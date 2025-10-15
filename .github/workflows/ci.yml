@@ -1,0 +1,133 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies - Svelte.Auth
+      run: |
+        cd Svelte.Auth
+        npm ci
+    
+    - name: Install dependencies - Svelte.Config
+      run: |
+        cd Svelte.Config
+        npm ci
+    
+    - name: Install dependencies - Svelte.Logging.Abstractions
+      run: |
+        cd Svelte.Logging.Abstractions
+        npm ci
+    
+    - name: Install dependencies - Sample App
+      run: |
+        cd Svelte.Sample
+        npm ci
+    
+    - name: Install dependencies - Sample API
+      run: |
+        cd Svelte.Sample.Api
+        npm ci
+    
+    - name: Type check - Svelte.Auth
+      run: |
+        cd Svelte.Auth
+        npm run check
+    
+    - name: Type check - Svelte.Config
+      run: |
+        cd Svelte.Config
+        npm run check
+    
+    - name: Type check - Svelte.Logging.Abstractions
+      run: |
+        cd Svelte.Logging.Abstractions
+        npm run check
+    
+    - name: Type check - Sample App
+      run: |
+        cd Svelte.Sample
+        npm run check
+    
+    - name: Build libraries
+      run: |
+        cd Svelte.Auth && npm run build
+        cd ../Svelte.Config && npm run build
+        cd ../Svelte.Logging.Abstractions && npm run build
+    
+    - name: Build Sample App
+      run: |
+        cd Svelte.Sample
+        npm run build
+    
+    - name: Build Sample API
+      run: |
+        cd Svelte.Sample.Api
+        npm run build
+    
+    - name: Lint code
+      run: |
+        cd Svelte.Auth && npm run lint
+        cd ../Svelte.Config && npm run lint
+        cd ../Svelte.Logging.Abstractions && npm run lint
+        cd ../Svelte.Sample && npm run lint
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Security audit - Svelte.Auth
+      run: |
+        cd Svelte.Auth
+        npm ci
+        npm audit --audit-level moderate
+      continue-on-error: true
+    
+    - name: Security audit - Svelte.Config
+      run: |
+        cd Svelte.Config
+        npm ci
+        npm audit --audit-level moderate
+      continue-on-error: true
+    
+    - name: Security audit - Sample App
+      run: |
+        cd Svelte.Sample
+        npm ci
+        npm audit --audit-level moderate
+      continue-on-error: true
+    
+    - name: Security audit - Sample API
+      run: |
+        cd Svelte.Sample.Api
+        npm ci
+        npm audit --audit-level moderate
+      continue-on-error: true
