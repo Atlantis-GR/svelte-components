@@ -15,9 +15,9 @@
 		"lint": "prettier --check ."
 	},
 	"dependencies": {
-		"@atlantis-gr/svelte-auth": "file:../Svelte.Auth/atlantis-gr-svelte-auth-1.0.0.tgz",
-		"@atlantis-gr/svelte-config": "file:../Svelte.Config/atlantis-gr-svelte-config-1.0.0.tgz",
-		"@atlantis-gr/svelte-logging-abstractions": "file:../Svelte.Logging.Abstractions/atlantis-gr-svelte-logging-abstractions-1.0.0.tgz",
+		"@atlantis-gr/svelte-auth": "1.0.1",
+		"@atlantis-gr/svelte-config": "1.0.1",
+		"@atlantis-gr/svelte-logging-abstractions": "1.0.0",
 		"marked": "^16.4.0"
 	},
 	"devDependencies": {
