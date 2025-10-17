@@ -1,0 +1,97 @@
+name: Publish to NPM
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to publish'
+        required: true
+        type: choice
+        options:
+          - auth
+          - config
+          - logging
+          - all
+      force:
+        description: 'Force publish'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Publish Auth
+        if: github.event.inputs.package == 'auth' || github.event.inputs.package == 'all'
+        run: |
+          cd Svelte.Auth
+          npm install
+          npm run check
+          npm run lint
+          npm run build
+          
+          if [[ "${{ github.event.inputs.force }}" == "false" ]]; then
+            PACKAGE_NAME=$(node -p "require('./package.json').name")
+            VERSION=$(node -p "require('./package.json').version")
+            if npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null; then
+              echo "Version $VERSION already exists"
+              exit 1
+            fi
+          fi
+          
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Publish Config
+        if: github.event.inputs.package == 'config' || github.event.inputs.package == 'all'
+        run: |
+          cd Svelte.Config
+          npm install
+          npm run check
+          npm run lint
+          npm run build
+          
+          if [[ "${{ github.event.inputs.force }}" == "false" ]]; then
+            PACKAGE_NAME=$(node -p "require('./package.json').name")
+            VERSION=$(node -p "require('./package.json').version")
+            if npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null; then
+              echo "Version $VERSION already exists"
+              exit 1
+            fi
+          fi
+          
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      
+      - name: Publish Logging
+        if: github.event.inputs.package == 'logging' || github.event.inputs.package == 'all'
+        run: |
+          cd Svelte.Logging.Abstractions
+          npm install
+          npm run check
+          npm run lint
+          npm run build
+          
+          if [[ "${{ github.event.inputs.force }}" == "false" ]]; then
+            PACKAGE_NAME=$(node -p "require('./package.json').name")
+            VERSION=$(node -p "require('./package.json').version")
+            if npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null; then
+              echo "Version $VERSION already exists"
+              exit 1
+            fi
+          fi
+          
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
