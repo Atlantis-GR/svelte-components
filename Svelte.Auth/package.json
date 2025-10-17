@@ -1,6 +1,6 @@
 {
 	"name": "@atlantis-gr/svelte-auth",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "OAuth/OIDC authentication library for Svelte applications",
 	"scripts": {
 		"dev": "vite dev",
@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"oidc-client-ts": "^3.3.0",
-		"@atlantis-gr/svelte-logging-abstractions": "file:../Svelte.Logging.Abstractions"
+		"@atlantis-gr/svelte-logging-abstractions": "1.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.1.0",
@@ -62,7 +62,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Atlantis-GR/svelte-components"
+		"url": "git+https://github.com/Atlantis-GR/svelte-components.git"
 	},
 	"keywords": [
 		"svelte",
