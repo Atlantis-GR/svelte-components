@@ -7,7 +7,7 @@ export { LogLevel };
 
 export class ConsoleLogger implements ILogger {
 	constructor(
-		private level: LogLevel = LogLevel.INFO,
+		private level: LogLevel = LogLevel.WARN,
 		private prefix: string = '[Auth]'
 	) {}
 
