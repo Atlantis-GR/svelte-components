@@ -22,32 +22,44 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+    
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          Svelte.Auth/node_modules
+          Svelte.Config/node_modules
+          Svelte.Logging.Abstractions/node_modules
+          Svelte.Sample/node_modules
+          Svelte.Sample.Api/node_modules
+        key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-${{ matrix.node-version }}-
     
     - name: Install dependencies - Svelte.Auth
       run: |
         cd Svelte.Auth
-        npm ci
+        npm install
     
     - name: Install dependencies - Svelte.Config
       run: |
         cd Svelte.Config
-        npm ci
+        npm install
     
     - name: Install dependencies - Svelte.Logging.Abstractions
       run: |
         cd Svelte.Logging.Abstractions
-        npm ci
+        npm install
     
     - name: Install dependencies - Sample App
       run: |
         cd Svelte.Sample
-        npm ci
+        npm install
     
     - name: Install dependencies - Sample API
       run: |
         cd Svelte.Sample.Api
-        npm ci
+        npm install
     
     - name: Type check - Svelte.Auth
       run: |
@@ -102,32 +114,44 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
+    
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          Svelte.Auth/node_modules
+          Svelte.Config/node_modules
+          Svelte.Logging.Abstractions/node_modules
+          Svelte.Sample/node_modules
+          Svelte.Sample.Api/node_modules
+        key: ${{ runner.os }}-node-20-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-20-
     
     - name: Security audit - Svelte.Auth
       run: |
         cd Svelte.Auth
-        npm ci
+        npm install
         npm audit --audit-level moderate
       continue-on-error: true
     
     - name: Security audit - Svelte.Config
       run: |
         cd Svelte.Config
-        npm ci
+        npm install
         npm audit --audit-level moderate
       continue-on-error: true
     
     - name: Security audit - Sample App
       run: |
         cd Svelte.Sample
-        npm ci
+        npm install
         npm audit --audit-level moderate
       continue-on-error: true
     
     - name: Security audit - Sample API
       run: |
         cd Svelte.Sample.Api
-        npm ci
+        npm install
         npm audit --audit-level moderate
       continue-on-error: true
