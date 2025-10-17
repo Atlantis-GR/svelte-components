@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { useConfig } from '../context.js';
-	import { browser } from '$app/environment';
+	import { BROWSER } from 'esm-env';
 
 	// Props
 	interface Props {
@@ -14,7 +14,7 @@
 	const { config, isProduction } = useConfig();
 
 	// Show only in development unless explicitly allowed
-	let shouldShow = $derived(browser && (!$isProduction || showInProduction));
+	let shouldShow = $derived(BROWSER && (!$isProduction || showInProduction));
 
 	let isExpanded = $state(expanded);
 
@@ -23,7 +23,7 @@
 	}
 
 	function copyToClipboard() {
-		if (browser && $config) {
+		if (BROWSER && $config) {
 			navigator.clipboard.writeText(JSON.stringify($config, null, 2));
 		}
 	}

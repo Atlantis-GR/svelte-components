@@ -40,8 +40,9 @@
 		"svelte": "^5.0.0"
 	},
 	"dependencies": {
-		"lodash-es": "^4.17.21",
-		"@atlantis-gr/svelte-logging-abstractions": "1.0.0"
+		"@atlantis-gr/svelte-logging-abstractions": "1.0.0",
+		"esm-env": "^1.2.2",
+		"lodash-es": "^4.17.21"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.1.1",
