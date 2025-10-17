@@ -1,35 +1,38 @@
 {
-  "name": "svelte.sample.api",
-  "version": "1.0.0",
-  "description": "Sample API server for demonstrating Svelte authentication and configuration libraries",
-  "main": "dist/server.js",
-  "type": "module",
-  "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "db:init": "tsx src/scripts/init-db.ts",
-    "db:seed": "tsx src/scripts/seed-db.ts"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-rate-limit": "^7.1.5",
-    "helmet": "^7.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "jwks-client": "^2.1.0",
-    "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.6",
-    "uuid": "^9.0.1"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20.10.5",
-    "@types/uuid": "^9.0.7",
-    "tsx": "^4.6.2",
-    "typescript": "^5.3.3"
-  }
+	"name": "svelte.sample.api",
+	"version": "1.0.0",
+	"description": "Sample API server for demonstrating Svelte authentication and configuration libraries",
+	"main": "dist/server.js",
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch src/server.ts",
+		"build": "tsc",
+		"start": "node dist/server.js",
+		"db:init": "tsx src/scripts/init-db.ts",
+		"db:seed": "tsx src/scripts/seed-db.ts",
+		"format": "prettier --write .",
+		"lint": "prettier --check ."
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^4.18.2",
+		"express-rate-limit": "^7.1.5",
+		"helmet": "^7.1.0",
+		"jsonwebtoken": "^9.0.2",
+		"jwks-client": "^2.1.0",
+		"sqlite": "^5.1.1",
+		"sqlite3": "^5.1.6",
+		"uuid": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21",
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^20.10.5",
+		"@types/uuid": "^9.0.7",
+		"prettier": "^3.6.2",
+		"tsx": "^4.6.2",
+		"typescript": "^5.3.3"
+	}
 }

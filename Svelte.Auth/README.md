@@ -27,13 +27,13 @@ Create your auth configuration:
 ```typescript
 // app.html or app configuration
 const authConfig = {
-  authority: 'https://your-keycloak-server.com/realms/your-realm',
-  client_id: 'your-client-id',
-  redirect_uri: 'http://localhost:5173/auth-callback',
-  response_type: 'code',
-  scope: 'openid profile email',
-  automaticSilentRenew: true,
-  silentRequestTimeout: 10000
+	authority: 'https://your-keycloak-server.com/realms/your-realm',
+	client_id: 'your-client-id',
+	redirect_uri: 'http://localhost:5173/auth-callback',
+	response_type: 'code',
+	scope: 'openid profile email',
+	automaticSilentRenew: true,
+	silentRequestTimeout: 10000
 };
 ```
 
@@ -42,15 +42,15 @@ const authConfig = {
 ```svelte
 <!-- app.html or root layout -->
 <script>
-  import { AuthProvider } from '@atlantis-gr/svelte-auth/components';
-  
-  const authConfig = {
-    // your configuration
-  };
+	import { AuthProvider } from '@atlantis-gr/svelte-auth/components';
+
+	const authConfig = {
+		// your configuration
+	};
 </script>
 
 <AuthProvider config={authConfig}>
-  <slot />
+	<slot />
 </AuthProvider>
 ```
 
@@ -58,16 +58,16 @@ const authConfig = {
 
 ```svelte
 <script>
-  import { getAuthStores } from '@atlantis-gr/svelte-auth';
-  
-  const { isAuthenticated, user } = getAuthStores();
+	import { getAuthStores } from '@atlantis-gr/svelte-auth';
+
+	const { isAuthenticated, user } = getAuthStores();
 </script>
 
 {#if $isAuthenticated}
-  <p>Welcome, {$user?.profile?.name}!</p>
-  <button onclick={logout}>Logout</button>
+	<p>Welcome, {$user?.profile?.name}!</p>
+	<button onclick={logout}>Logout</button>
 {:else}
-  <button onclick={login}>Login</button>
+	<button onclick={login}>Login</button>
 {/if}
 ```
 
@@ -76,7 +76,7 @@ const authConfig = {
 ```svelte
 <!-- src/routes/auth-callback/+page.svelte -->
 <script>
-  import { AuthCallback } from '@atlantis-gr/svelte-auth/components';
+	import { AuthCallback } from '@atlantis-gr/svelte-auth/components';
 </script>
 
 <AuthCallback />
@@ -87,38 +87,45 @@ const authConfig = {
 ### Components
 
 #### `<AuthProvider>`
+
 Provides authentication context to child components.
 
 **Props:**
+
 - `config: AuthConfig` - OIDC client configuration
 - `onSigninCallback?: (user: User) => void` - Called after successful login
 - `onSignoutCallback?: () => void` - Called after logout
 
 #### `<AuthCallback>`
+
 Handles OAuth callback and token exchange.
 
 #### `<AuthRenew>`
+
 Handles silent token renewal.
 
 #### `<LoggedOut>`
+
 Component displayed when user is logged out.
 
 ### Stores
 
 #### `getAuthStores()`
+
 Returns reactive stores for authentication state:
 
 ```typescript
 const {
-  isAuthenticated,  // Writable<boolean>
-  user,            // Writable<User | null>
-  isLoading        // Writable<boolean>
+	isAuthenticated, // Writable<boolean>
+	user, // Writable<User | null>
+	isLoading // Writable<boolean>
 } = getAuthStores();
 ```
 
 ### Services
 
 #### `createScopedLogger(scope: string)`
+
 Creates a scoped logger for debugging:
 
 ```typescript
@@ -132,22 +139,22 @@ logger.info('Authentication successful');
 
 ```svelte
 <script>
-  import { onMount } from 'svelte';
-  import { goto } from '$app/navigation';
-  import { getAuthStores } from '@atlantis-gr/svelte-auth';
-  
-  const { isAuthenticated } = getAuthStores();
-  
-  onMount(() => {
-    if (!$isAuthenticated) {
-      goto('/login');
-    }
-  });
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+	import { getAuthStores } from '@atlantis-gr/svelte-auth';
+
+	const { isAuthenticated } = getAuthStores();
+
+	onMount(() => {
+		if (!$isAuthenticated) {
+			goto('/login');
+		}
+	});
 </script>
 
 <!-- Protected content -->
 {#if $isAuthenticated}
-  <h1>Protected Page</h1>
+	<h1>Protected Page</h1>
 {/if}
 ```
 
@@ -156,9 +163,9 @@ logger.info('Authentication successful');
 ```typescript
 // In your auth configuration
 const authConfig = {
-  // ... other config
-  post_logout_redirect_uri: 'http://localhost:5173/',
-  automaticSilentRenew: true
+	// ... other config
+	post_logout_redirect_uri: 'http://localhost:5173/',
+	automaticSilentRenew: true
 };
 ```
 
@@ -179,6 +186,7 @@ const authConfig = {
 ### Other OIDC Providers
 
 This library works with any OIDC-compliant provider:
+
 - Auth0
 - Azure AD
 - Google Identity
@@ -189,16 +197,16 @@ This library works with any OIDC-compliant provider:
 
 ```typescript
 interface AuthConfig {
-  authority: string;           // OIDC provider URL
-  client_id: string;          // Client identifier
-  redirect_uri: string;       // Callback URL
-  post_logout_redirect_uri?: string;
-  response_type?: string;     // Usually 'code'
-  scope?: string;            // Space-separated scopes
-  automaticSilentRenew?: boolean;
-  silentRequestTimeout?: number;
-  loadUserInfo?: boolean;
-  clockSkew?: number;
+	authority: string; // OIDC provider URL
+	client_id: string; // Client identifier
+	redirect_uri: string; // Callback URL
+	post_logout_redirect_uri?: string;
+	response_type?: string; // Usually 'code'
+	scope?: string; // Space-separated scopes
+	automaticSilentRenew?: boolean;
+	silentRequestTimeout?: number;
+	loadUserInfo?: boolean;
+	clockSkew?: number;
 }
 ```
 

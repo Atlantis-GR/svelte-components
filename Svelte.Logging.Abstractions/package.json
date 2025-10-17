@@ -1,45 +1,45 @@
 {
-    "name": "@atlantis-gr/svelte-logging-abstractions",
-    "version": "1.0.0",
-    "description": "Logging abstractions for Svelte components",
-    "scripts": {
-        "dev": "vite dev",
-        "build:pack": "svelte-package && npm pack",
-        "build": "svelte-package",
-        "preview": "vite preview",
-        "prepare": "svelte-kit sync || echo ''",
-        "prepack": "svelte-package",
-        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-        "format": "prettier --write .",
-        "lint": "prettier --check ."
-    },
-    "files": [
-        "dist",
-        "!dist/**/*.test.*",
-        "!dist/**/*.spec.*"
-    ],
-    "sideEffects": [
-        "**/*.css"
-    ],
-    "svelte": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "type": "module",
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "svelte": "./dist/index.js"
-        },
-        "./components": {
-            "types": "./dist/components/index.d.ts",
-            "svelte": "./dist/components/index.js"
-        }
-    },
+	"name": "@atlantis-gr/svelte-logging-abstractions",
+	"version": "1.0.0",
+	"description": "Logging abstractions for Svelte components",
+	"scripts": {
+		"dev": "vite dev",
+		"build:pack": "svelte-package && npm pack",
+		"build": "svelte-package",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"prepack": "svelte-package",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "prettier --write .",
+		"lint": "prettier --check ."
+	},
+	"files": [
+		"dist",
+		"!dist/**/*.test.*",
+		"!dist/**/*.spec.*"
+	],
+	"sideEffects": [
+		"**/*.css"
+	],
+	"svelte": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"svelte": "./dist/index.js"
+		},
+		"./components": {
+			"types": "./dist/components/index.d.ts",
+			"svelte": "./dist/components/index.js"
+		}
+	},
 	"peerDependencies": {
 		"svelte": "^5.0.0",
 		"@sveltejs/kit": "^2.0.0"
 	},
-    "devDependencies": {
+	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.1.0",
 		"@sveltejs/kit": "^2.43.2",
 		"@sveltejs/package": "^2.5.4",
@@ -53,8 +53,8 @@
 		"tailwindcss": "^4.1.13",
 		"typescript": "^5.9.2",
 		"vite": "^7.1.7"
-    },
-    "author": "Atlantis GR",
+	},
+	"author": "Atlantis GR",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

@@ -6,13 +6,13 @@ import { configActions } from '@atlantis-gr/svelte-config';
  */
 
 export function safeUpdateConfig(updates: any) {
-  configActions.updateSettings(updates);
+	configActions.updateSettings(updates);
 }
 
 export function safeResetConfig() {
-  configActions.reset();
+	configActions.reset();
 }
 
 export function safeInitializeDefaults(defaults: any) {
-  configActions.initializeDefaults(defaults);
+	configActions.initializeDefaults(defaults);
 }

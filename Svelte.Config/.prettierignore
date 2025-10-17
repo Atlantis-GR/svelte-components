@@ -5,5 +5,11 @@ yarn.lock
 bun.lock
 bun.lockb
 
+# Generated files
+.svelte-kit/
+dist/
+build/
+
 # Miscellaneous
 /static/
+*.log

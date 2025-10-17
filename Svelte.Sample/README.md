@@ -15,24 +15,28 @@ This sample application demonstrates the integration and usage of the component 
 ## Features
 
 ### Authentication
+
 - OAuth/OIDC login with Keycloak
 - Automatic token refresh
 - Protected routes and components
 - User profile management
 
 ### Configuration Management
+
 - Runtime configuration loading
 - Feature flags with real-time updates
 - Environment-specific settings
 - Configuration debugging tools
 
 ### Content Management
+
 - Post editor with markdown support
 - Real-time preview functionality
 - Word count and reading time statistics
 - Category and tag management
 
 ### User Interface
+
 - Responsive design with Tailwind CSS
 - Mobile-first approach
 - Accessible components
@@ -48,17 +52,20 @@ This sample application demonstrates the integration and usage of the component 
 ### Installation
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Set up environment (if needed):**
+
    ```bash
    # Copy example configuration
    cp static/app-settings.example.json static/app-settings.manifest.json
    ```
 
 3. **Start development server:**
+
    ```bash
    npm run dev
    ```
@@ -99,28 +106,28 @@ The app uses a configuration manifest for runtime settings:
 
 ```json
 {
-  "api": {
-    "url": "http://localhost:3001",
-    "timeout": 10000
-  },
-  "features": {
-    "enableDarkMode": true,
-    "enableBetaFeatures": false,
-    "enableAdvancedLogging": false,
-    "enableConfigDebugger": true
-  },
-  "branding": {
-    "appName": "Svelte Components Demo",
-    "primaryColor": "#ff3e00",
-    "theme": "auto"
-  },
-  "auth_settings": {
-    "authority": "https://your-keycloak-server.com/realms/your-realm",
-    "client_id": "your-client-id",
-    "redirect_uri": "http://localhost:5173/auth-callback",
-    "response_type": "code",
-    "scope": "openid profile email"
-  }
+	"api": {
+		"url": "http://localhost:3001",
+		"timeout": 10000
+	},
+	"features": {
+		"enableDarkMode": true,
+		"enableBetaFeatures": false,
+		"enableAdvancedLogging": false,
+		"enableConfigDebugger": true
+	},
+	"branding": {
+		"appName": "Svelte Components Demo",
+		"primaryColor": "#ff3e00",
+		"theme": "auto"
+	},
+	"auth_settings": {
+		"authority": "https://your-keycloak-server.com/realms/your-realm",
+		"client_id": "your-client-id",
+		"redirect_uri": "http://localhost:5173/auth-callback",
+		"response_type": "code",
+		"scope": "openid profile email"
+	}
 }
 ```
 
@@ -145,24 +152,28 @@ The app uses a configuration manifest for runtime settings:
 The advanced post editor includes:
 
 #### ✍️ Rich Text Editor
+
 - Markdown toolbar with formatting options
 - Bold, italic, headers, links, images
 - Code blocks, quotes, and lists
 - Live preview mode
 
 #### 📊 Content Analytics
+
 - Real-time word count
 - Estimated reading time
 - Writing statistics
 - Content validation
 
 #### 🔍 SEO Optimization
+
 - Custom meta titles and descriptions
 - Auto-generated SEO fields
 - Content optimization hints
 - Social media previews
 
 #### 🏷️ Content Organization
+
 - Category management
 - Tag system
 - Featured images
@@ -264,7 +275,7 @@ The app uses Tailwind CSS for styling:
 
 /* Custom component styles */
 .prose {
-  @apply text-gray-700 dark:text-gray-300;
+	@apply text-gray-700 dark:text-gray-300;
 }
 ```
 
@@ -274,13 +285,13 @@ Configure themes via the configuration manifest:
 
 ```json
 {
-  "branding": {
-    "theme": "auto",
-    "primaryColor": "#your-color",
-    "cssVariables": {
-      "--primary-color": "#your-color"
-    }
-  }
+	"branding": {
+		"theme": "auto",
+		"primaryColor": "#your-color",
+		"cssVariables": {
+			"--primary-color": "#your-color"
+		}
+	}
 }
 ```
 
@@ -290,11 +301,11 @@ Extend existing components or create new ones:
 
 ```svelte
 <script>
-  import { useConfig } from '@atlantis-gr/svelte-config';
-  import { createScopedLogger } from '@atlantis-gr/svelte-auth';
-  
-  const { config } = useConfig();
-  const logger = createScopedLogger('CustomComponent');
+	import { useConfig } from '@atlantis-gr/svelte-config';
+	import { createScopedLogger } from '@atlantis-gr/svelte-auth';
+
+	const { config } = useConfig();
+	const logger = createScopedLogger('CustomComponent');
 </script>
 ```
 
@@ -338,9 +349,9 @@ import { getAuthStores } from '@atlantis-gr/svelte-auth';
 const { user } = getAuthStores();
 
 user.subscribe((currentUser) => {
-  if (currentUser?.access_token) {
-    setAuthToken(currentUser.access_token);
-  }
+	if (currentUser?.access_token) {
+		setAuthToken(currentUser.access_token);
+	}
 });
 ```
 
@@ -348,15 +359,15 @@ user.subscribe((currentUser) => {
 
 ```svelte
 <script>
-  import { FeatureFlag } from '@atlantis-gr/svelte-config/components';
+	import { FeatureFlag } from '@atlantis-gr/svelte-config/components';
 </script>
 
 <FeatureFlag flag="features.enableAdvancedEditor">
-  <AdvancedPostEditor />
+	<AdvancedPostEditor />
 </FeatureFlag>
 
 <FeatureFlag flag="features.enableBasicEditor" fallback={true}>
-  <BasicPostEditor />
+	<BasicPostEditor />
 </FeatureFlag>
 ```
 

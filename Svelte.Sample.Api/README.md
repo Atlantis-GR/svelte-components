@@ -51,18 +51,22 @@ The server will start on `http://localhost:3001` by default.
 ## API Endpoints
 
 ### Health
+
 - `GET /api/health` - Health check endpoint
 
 ### Authentication
+
 - `POST /api/auth/login` - User login
 - `POST /api/auth/refresh` - Refresh tokens
 - `POST /api/auth/logout` - User logout
 
 ### Configuration
+
 - `GET /api/config` - Get application configuration
 - `GET /api/config/features` - Get feature flags
 
 ### Posts
+
 - `GET /api/posts` - Get all posts
 - `GET /api/posts/:id` - Get specific post
 - `POST /api/posts` - Create new post (auth required)
@@ -78,6 +82,7 @@ cp .env.example .env
 ```
 
 Configure the following environment variables:
+
 - `PORT` - Server port (default: 3001)
 - `JWT_SECRET` - JWT signing secret
 - `DATABASE_URL` - Database connection string
@@ -85,6 +90,7 @@ Configure the following environment variables:
 ## Development
 
 The API uses:
+
 - Express.js for the web framework
 - SQLite for the database
 - JWT for authentication

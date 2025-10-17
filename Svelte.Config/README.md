@@ -27,31 +27,31 @@ Create a configuration file in your `static/` directory:
 ```json
 // static/app-settings.manifest.json
 {
-  "api": {
-    "url": "http://localhost:3001",
-    "timeout": 10000,
-    "retries": 3
-  },
-  "features": {
-    "enableDarkMode": true,
-    "enableBetaFeatures": false,
-    "enableAdvancedLogging": false
-  },
-  "branding": {
-    "appName": "My Application",
-    "primaryColor": "#ff3e00",
-    "theme": "auto"
-  },
-  "environment": {
-    "development": {
-      "api_url": "http://localhost:3001",
-      "debug": true
-    },
-    "production": {
-      "api_url": "https://api.production.com",
-      "debug": false
-    }
-  }
+	"api": {
+		"url": "http://localhost:3001",
+		"timeout": 10000,
+		"retries": 3
+	},
+	"features": {
+		"enableDarkMode": true,
+		"enableBetaFeatures": false,
+		"enableAdvancedLogging": false
+	},
+	"branding": {
+		"appName": "My Application",
+		"primaryColor": "#ff3e00",
+		"theme": "auto"
+	},
+	"environment": {
+		"development": {
+			"api_url": "http://localhost:3001",
+			"debug": true
+		},
+		"production": {
+			"api_url": "https://api.production.com",
+			"debug": false
+		}
+	}
 }
 ```
 
@@ -60,11 +60,11 @@ Create a configuration file in your `static/` directory:
 ```svelte
 <!-- app.html or root layout -->
 <script>
-  import { ConfigProvider } from '@atlantis-gr/svelte-config/components';
+	import { ConfigProvider } from '@atlantis-gr/svelte-config/components';
 </script>
 
 <ConfigProvider configUrl="/app-settings.manifest.json">
-  <slot />
+	<slot />
 </ConfigProvider>
 ```
 
@@ -72,10 +72,10 @@ Create a configuration file in your `static/` directory:
 
 ```svelte
 <script>
-  import { useConfig } from '@atlantis-gr/svelte-config';
-  import { FeatureFlag, ConfigValue } from '@atlantis-gr/svelte-config/components';
-  
-  const { config, featureFlags, apiUrl } = useConfig();
+	import { useConfig } from '@atlantis-gr/svelte-config';
+	import { FeatureFlag, ConfigValue } from '@atlantis-gr/svelte-config/components';
+
+	const { config, featureFlags, apiUrl } = useConfig();
 </script>
 
 <!-- Access configuration values -->
@@ -83,7 +83,7 @@ Create a configuration file in your `static/` directory:
 
 <!-- Use feature flags -->
 <FeatureFlag flag="enableDarkMode">
-  <button>Toggle Dark Mode</button>
+	<button>Toggle Dark Mode</button>
 </FeatureFlag>
 
 <!-- Display configuration values -->
@@ -91,7 +91,7 @@ Create a configuration file in your `static/` directory:
 
 <!-- Debug configuration -->
 {#if $config.environment?.debug}
-  <pre>{JSON.stringify($config, null, 2)}</pre>
+	<pre>{JSON.stringify($config, null, 2)}</pre>
 {/if}
 ```
 
@@ -100,62 +100,72 @@ Create a configuration file in your `static/` directory:
 ### Components
 
 #### `<ConfigProvider>`
+
 Provides configuration context to child components.
 
 **Props:**
+
 - `configUrl: string` - URL to configuration manifest
 - `fallbackConfig?: object` - Default configuration if loading fails
 - `onConfigLoaded?: (config: any) => void` - Callback when config loads
 - `onConfigError?: (error: Error) => void` - Callback on loading errors
 
 #### `<FeatureFlag>`
+
 Conditionally renders content based on feature flag state.
 
 **Props:**
+
 - `flag: string` - Feature flag key (supports dot notation)
 - `fallback?: boolean` - Default value if flag not found
 
 ```svelte
 <FeatureFlag flag="features.enableBetaFeatures">
-  <p>Beta features are enabled!</p>
+	<p>Beta features are enabled!</p>
 </FeatureFlag>
 ```
 
 #### `<ConfigValue>`
+
 Displays configuration values with optional formatting.
 
 **Props:**
+
 - `key: string` - Configuration key (supports dot notation)
 - `fallback?: any` - Default value if key not found
 - `format?: (value: any) => string` - Custom formatter function
 
 #### `<ConfigDebugger>`
+
 Development tool for inspecting configuration state.
 
 **Props:**
+
 - `showJson?: boolean` - Display raw JSON (default: true)
 - `showFeatureFlags?: boolean` - Show feature flags separately (default: true)
 
 ### Composables
 
 #### `useConfig()`
+
 Returns reactive stores for configuration access:
 
 ```typescript
 const {
-  config,           // Writable<ConfigObject>
-  featureFlags,     // Writable<FeatureFlags>
-  apiUrl,          // Writable<string>
-  isProduction,    // Writable<boolean>
-  culture,         // Writable<string>
-  appVersion,      // Writable<string>
-  service          // ConfigService instance
+	config, // Writable<ConfigObject>
+	featureFlags, // Writable<FeatureFlags>
+	apiUrl, // Writable<string>
+	isProduction, // Writable<boolean>
+	culture, // Writable<string>
+	appVersion, // Writable<string>
+	service // ConfigService instance
 } = useConfig();
 ```
 
 ### Services
 
 #### `ConfigService`
+
 Core configuration management service:
 
 ```typescript
@@ -171,14 +181,14 @@ const apiUrl = configService.get('api.url');
 
 // Update configuration
 configService.update({
-  features: {
-    enableBetaFeatures: true
-  }
+	features: {
+		enableBetaFeatures: true
+	}
 });
 
 // Subscribe to changes
 configService.subscribe((config) => {
-  console.log('Config updated:', config);
+	console.log('Config updated:', config);
 });
 ```
 
@@ -188,26 +198,26 @@ configService.subscribe((config) => {
 
 ```typescript
 interface AppConfig {
-  api?: {
-    url?: string;
-    timeout?: number;
-    retries?: number;
-  };
-  features?: Record<string, boolean>;
-  branding?: {
-    appName?: string;
-    primaryColor?: string;
-    theme?: 'light' | 'dark' | 'auto';
-  };
-  environment?: {
-    [env: string]: Record<string, any>;
-  };
-  app?: {
-    version?: string;
-    culture?: string;
-    title?: string;
-    description?: string;
-  };
+	api?: {
+		url?: string;
+		timeout?: number;
+		retries?: number;
+	};
+	features?: Record<string, boolean>;
+	branding?: {
+		appName?: string;
+		primaryColor?: string;
+		theme?: 'light' | 'dark' | 'auto';
+	};
+	environment?: {
+		[env: string]: Record<string, any>;
+	};
+	app?: {
+		version?: string;
+		culture?: string;
+		title?: string;
+		description?: string;
+	};
 }
 ```
 
@@ -215,26 +225,26 @@ interface AppConfig {
 
 ```json
 {
-  "environment": {
-    "development": {
-      "api_url": "http://localhost:3001",
-      "debug": true,
-      "features": {
-        "enableDebugMode": true
-      }
-    },
-    "staging": {
-      "api_url": "https://staging-api.example.com",
-      "debug": false
-    },
-    "production": {
-      "api_url": "https://api.example.com",
-      "debug": false,
-      "features": {
-        "enableDebugMode": false
-      }
-    }
-  }
+	"environment": {
+		"development": {
+			"api_url": "http://localhost:3001",
+			"debug": true,
+			"features": {
+				"enableDebugMode": true
+			}
+		},
+		"staging": {
+			"api_url": "https://staging-api.example.com",
+			"debug": false
+		},
+		"production": {
+			"api_url": "https://api.example.com",
+			"debug": false,
+			"features": {
+				"enableDebugMode": false
+			}
+		}
+	}
 }
 ```
 
@@ -246,16 +256,16 @@ For sensitive configuration values, use server-side APIs:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte';
-  import { useConfig } from '@atlantis-gr/svelte-config';
-  
-  const { service } = useConfig();
-  
-  onMount(async () => {
-    // Load secure configuration from API
-    const secureConfig = await fetch('/api/config/secure').then(r => r.json());
-    service.update(secureConfig);
-  });
+	import { onMount } from 'svelte';
+	import { useConfig } from '@atlantis-gr/svelte-config';
+
+	const { service } = useConfig();
+
+	onMount(async () => {
+		// Load secure configuration from API
+		const secureConfig = await fetch('/api/config/secure').then((r) => r.json());
+		service.update(secureConfig);
+	});
 </script>
 ```
 
@@ -285,15 +295,15 @@ Never expose sensitive data in client-side configuration:
 
 ```json
 {
-  "branding": {
-    "theme": "auto",
-    "primaryColor": "#ff3e00",
-    "secondaryColor": "#676778",
-    "cssVariables": {
-      "--primary-color": "#ff3e00",
-      "--secondary-color": "#676778"
-    }
-  }
+	"branding": {
+		"theme": "auto",
+		"primaryColor": "#ff3e00",
+		"secondaryColor": "#676778",
+		"cssVariables": {
+			"--primary-color": "#ff3e00",
+			"--secondary-color": "#676778"
+		}
+	}
 }
 ```
 
@@ -301,17 +311,17 @@ Never expose sensitive data in client-side configuration:
 
 ```svelte
 <script>
-  import { useConfig } from '@atlantis-gr/svelte-config';
-  
-  const { config } = useConfig();
-  
-  $: primaryColor = $config.branding?.primaryColor || '#000000';
+	import { useConfig } from '@atlantis-gr/svelte-config';
+
+	const { config } = useConfig();
+
+	$: primaryColor = $config.branding?.primaryColor || '#000000';
 </script>
 
 <style>
-  .themed-button {
-    background-color: var(--primary-color, {primaryColor});
-  }
+	.themed-button {
+		background-color: var(--primary-color, {primaryColor});
+	}
 </style>
 ```
 
@@ -326,16 +336,16 @@ const { service } = useConfig();
 
 // Update feature flags
 function toggleFeature(flagName: string) {
-  service.update({
-    features: {
-      [flagName]: !service.get(`features.${flagName}`)
-    }
-  });
+	service.update({
+		features: {
+			[flagName]: !service.get(`features.${flagName}`)
+		}
+	});
 }
 
 // Batch updates
 function updateMultipleSettings(updates: Partial<AppConfig>) {
-  service.update(updates);
+	service.update(updates);
 }
 ```
 
@@ -344,12 +354,12 @@ function updateMultipleSettings(updates: Partial<AppConfig>) {
 ```typescript
 // API endpoint for configuration updates
 async function updateConfigFromServer() {
-  const response = await fetch('/api/config', {
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-  
-  const serverConfig = await response.json();
-  service.update(serverConfig);
+	const response = await fetch('/api/config', {
+		headers: { Authorization: `Bearer ${token}` }
+	});
+
+	const serverConfig = await response.json();
+	service.update(serverConfig);
 }
 ```
 
@@ -373,16 +383,16 @@ import { render } from '@testing-library/svelte';
 import { ConfigProvider, FeatureFlag } from '@atlantis-gr/svelte-config/components';
 
 test('feature flag renders when enabled', () => {
-  const config = {
-    features: { myFeature: true }
-  };
-  
-  const { getByText } = render(FeatureFlag, {
-    props: { flag: 'features.myFeature' },
-    context: new Map([['config', config]])
-  });
-  
-  // Test implementation
+	const config = {
+		features: { myFeature: true }
+	};
+
+	const { getByText } = render(FeatureFlag, {
+		props: { flag: 'features.myFeature' },
+		context: new Map([['config', config]])
+	});
+
+	// Test implementation
 });
 ```
 

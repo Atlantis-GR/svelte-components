@@ -3,7 +3,9 @@ import { configureLogger, getLogger, LogLevel } from '@atlantis-gr/svelte-auth';
 import type { ILogger } from '@atlantis-gr/svelte-logging-abstractions';
 
 // Persistent store for logs that survives navigation
-export const logsStore = writable<Array<{ level: string; message: string; timestamp: Date; args?: any[] }>>([]);
+export const logsStore = writable<
+	Array<{ level: string; message: string; timestamp: Date; args?: any[] }>
+>([]);
 
 // Track total logs created (for demonstration)
 export const totalLogsCreated = writable(0);
@@ -16,7 +18,7 @@ let memoryLoggerInstance: PersistentMemoryLogger | null = null;
 export class PersistentMemoryLogger implements ILogger {
 	private hasLoggedConfig = false;
 	public readonly isMemoryLogger = true; // Unique identifier
-	
+
 	constructor(private minLevel: LogLevel = LogLevel.INFO) {}
 
 	// Method to update the minimum log level
@@ -31,16 +33,19 @@ export class PersistentMemoryLogger implements ILogger {
 
 	private addLog(level: string, message: string, ...args: any[]): void {
 		// Increment total logs counter
-		totalLogsCreated.update(n => n + 1);
-		
-		logsStore.update(currentLogs => {
-			const newLogs = [...currentLogs, {
-				level,
-				message,
-				timestamp: new Date(),
-				args: args.length > 0 ? args : undefined
-			}];
-			
+		totalLogsCreated.update((n) => n + 1);
+
+		logsStore.update((currentLogs) => {
+			const newLogs = [
+				...currentLogs,
+				{
+					level,
+					message,
+					timestamp: new Date(),
+					args: args.length > 0 ? args : undefined
+				}
+			];
+
 			// Keep only last 100 logs for better history
 			return newLogs.length > 100 ? newLogs.slice(-100) : newLogs;
 		});
@@ -103,18 +108,18 @@ export function ensureMemoryLoggerConfigured(level: LogLevel = LogLevel.INFO) {
 	if (memoryLoggerInstance) {
 		memoryLoggerInstance.setLogLevel(level);
 	}
-	
+
 	// Always reconfigure to ensure our logger is active
 	configureLogger({
 		logger: memoryLogger,
 		level: level
 	});
 	isLoggerConfigured = true;
-	
+
 	// Add a test log to verify it's working (only log this once per session)
 	if (!memoryLoggerInstance?.hasLoggedConfiguration()) {
-		memoryLogger.info('Memory logger configured', { 
-			level: LogLevel[level], 
+		memoryLogger.info('Memory logger configured', {
+			level: LogLevel[level],
 			numericLevel: level,
 			willLogTrace: level <= LogLevel.TRACE,
 			willLogDebug: level <= LogLevel.DEBUG,
@@ -128,7 +133,9 @@ export function ensureMemoryLoggerConfigured(level: LogLevel = LogLevel.INFO) {
 
 // Helper to check/set logger configuration status
 export const getIsLoggerConfigured = () => isLoggerConfigured;
-export const setLoggerConfigured = () => { isLoggerConfigured = true; };
+export const setLoggerConfigured = () => {
+	isLoggerConfigured = true;
+};
 
 // Function to reconfigure logger with a new level
 export function reconfigureMemoryLogger(newLevel: LogLevel) {

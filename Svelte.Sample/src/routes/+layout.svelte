@@ -46,11 +46,14 @@
 	onMount(async () => {
 		const logger = createScopedLogger('AppLayout');
 		try {
-			await loadAppConfig({}, {
-				periodicReload: true,
-				reloadInterval: 30000, // 30 seconds for demo (normally would be 5 minutes)
-				silentReload: true
-			});
+			await loadAppConfig(
+				{},
+				{
+					periodicReload: true,
+					reloadInterval: 30000, // 30 seconds for demo (normally would be 5 minutes)
+					silentReload: true
+				}
+			);
 			const resolvedAuthSettings = getResolvedAuthSettings();
 			// Get resolved auth settings from configuration
 			if (resolvedAuthSettings) {

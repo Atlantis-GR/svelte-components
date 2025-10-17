@@ -1,7 +1,21 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { LogLevel, getAuthService, getAuthStores, AuthService, createScopedLogger } from '@atlantis-gr/svelte-auth';
-	import { logsStore, memoryLogger, ensureMemoryLoggerConfigured, isMemoryLoggerActive, totalLogsCreated, reconfigureMemoryLogger, getCurrentLogLevel } from '$lib/memory-logger';
+	import {
+		LogLevel,
+		getAuthService,
+		getAuthStores,
+		AuthService,
+		createScopedLogger
+	} from '@atlantis-gr/svelte-auth';
+	import {
+		logsStore,
+		memoryLogger,
+		ensureMemoryLoggerConfigured,
+		isMemoryLoggerActive,
+		totalLogsCreated,
+		reconfigureMemoryLogger,
+		getCurrentLogLevel
+	} from '$lib/memory-logger';
 
 	let logs = $state<Array<{ level: string; message: string; timestamp: Date; args?: any[] }>>([]);
 	let totalLogs = $state(0);
@@ -13,11 +27,11 @@
 	let logLevel = $state(memoryLogger.getLogLevel());
 
 	onMount(() => {
-		const unsubscribeLogs = logsStore.subscribe(value => {
+		const unsubscribeLogs = logsStore.subscribe((value) => {
 			logs = value;
 		});
 
-		const unsubscribeTotal = totalLogsCreated.subscribe(value => {
+		const unsubscribeTotal = totalLogsCreated.subscribe((value) => {
 			totalLogs = value;
 		});
 
@@ -66,22 +80,22 @@
 	function getUser() {
 		if (authService) {
 			const user = authService.getCurrentUser();
-            if (user) {
-                memoryLogger.info('Retrieved user', user);
-            } else {
-                memoryLogger.warn('No user is currently authenticated');
-            }
+			if (user) {
+				memoryLogger.info('Retrieved user', user);
+			} else {
+				memoryLogger.warn('No user is currently authenticated');
+			}
 		}
 	}
 
 	function testLogLevelSync() {
 		const currentLevel = getCurrentLogLevel();
-		memoryLogger.info('Log level sync test', { 
-			selectedLevel: LogLevel[logLevel], 
+		memoryLogger.info('Log level sync test', {
+			selectedLevel: LogLevel[logLevel],
 			selectedNumeric: logLevel,
-			actualLevel: LogLevel[currentLevel], 
+			actualLevel: LogLevel[currentLevel],
 			actualNumeric: currentLevel,
-			inSync: logLevel === currentLevel 
+			inSync: logLevel === currentLevel
 		});
 	}
 
@@ -128,7 +142,7 @@
 						id="logLevel"
 						bind:value={logLevel}
 						onchange={updateLogLevel}
-						class="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+						class="rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
 					>
 						<option value={LogLevel.TRACE}>TRACE</option>
 						<option value={LogLevel.DEBUG}>DEBUG</option>
@@ -137,7 +151,8 @@
 						<option value={LogLevel.ERROR}>ERROR</option>
 					</select>
 					<p class="mt-1 text-xs text-gray-500">
-						Current level: {LogLevel[logLevel]} ({logLevel}) - Only messages at this level or higher will be displayed
+						Current level: {LogLevel[logLevel]} ({logLevel}) - Only messages at this level or higher
+						will be displayed
 					</p>
 				</div>
 
@@ -192,12 +207,12 @@
 					</a>
 
 					{#if !isLoggerActive}
-					<button
-						onclick={reconfigureLogger}
-						class="rounded-lg bg-orange-600 px-4 py-2 text-white transition-colors hover:bg-orange-700"
-					>
-						Reconfigure Logger
-					</button>
+						<button
+							onclick={reconfigureLogger}
+							class="rounded-lg bg-orange-600 px-4 py-2 text-white transition-colors hover:bg-orange-700"
+						>
+							Reconfigure Logger
+						</button>
 					{/if}
 				</div>
 
@@ -238,21 +253,34 @@
 					</div>
 				</div>
 
-				<div class="rounded-lg bg-blue-50 border border-blue-200 p-4">
+				<div class="rounded-lg border border-blue-200 bg-blue-50 p-4">
 					<div class="flex items-start space-x-3">
 						<div class="flex-shrink-0">
-							<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+							<svg
+								class="h-5 w-5 text-blue-600"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
 							</svg>
 						</div>
 						<div>
 							<h3 class="text-sm font-medium text-blue-900">Persistent Logging</h3>
 							<p class="mt-1 text-sm text-blue-700">
-								Logs are now stored persistently across page navigation. You can navigate to other pages 
-								and return here to see the same log history preserved. The logger maintains the last 100 entries.
+								Logs are now stored persistently across page navigation. You can navigate to other
+								pages and return here to see the same log history preserved. The logger maintains
+								the last 100 entries.
 							</p>
 							<div class="mt-2 flex items-center space-x-2">
-								<div class="w-2 h-2 rounded-full {isLoggerActive ? 'bg-green-500' : 'bg-red-500'}"></div>
+								<div
+									class="h-2 w-2 rounded-full {isLoggerActive ? 'bg-green-500' : 'bg-red-500'}"
+								></div>
 								<span class="text-xs {isLoggerActive ? 'text-green-700' : 'text-red-700'}">
 									Memory Logger {isLoggerActive ? 'Active' : 'Inactive'}
 								</span>
@@ -269,22 +297,22 @@
 				The auth components below will generate logs that you can view with the custom logger. Try
 				signing in, signing out, or getting user info to see the logger in action.
 			</p>
-			
+
 			<div class="space-y-4">
 				<div class="flex gap-4">
-					<a 
+					<a
 						href="/"
 						class="inline-block rounded-lg bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
 					>
 						Go to Home
 					</a>
-					<a 
+					<a
 						href="/auth-callback"
 						class="inline-block rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
 					>
 						Auth Callback Demo
 					</a>
-					<a 
+					<a
 						href="/headless-auth-callback"
 						class="inline-block rounded-lg bg-purple-600 px-4 py-2 text-white transition-colors hover:bg-purple-700"
 					>
@@ -296,7 +324,7 @@
 
 		{#if showLogs}
 			<div class="rounded-lg bg-white p-6 shadow-lg">
-				<div class="flex items-center justify-between mb-4">
+				<div class="mb-4 flex items-center justify-between">
 					<h2 class="text-xl font-semibold text-gray-800">Live Log Output</h2>
 					<div class="text-sm text-gray-600">
 						{logs.length} displayed • {totalLogs} total created
@@ -304,7 +332,7 @@
 				</div>
 
 				{#if logs.length === 0}
-					<p class="italic text-gray-500">
+					<p class="text-gray-500 italic">
 						No logs yet. Interact with the auth components to see logs appear.
 					</p>
 				{:else}
@@ -315,7 +343,7 @@
 								<span class="ml-2 font-semibold {getLevelColor(log.level)}">[{log.level}]</span>
 								<span class="ml-2 text-white">{log.message}</span>
 								{#if log.args}
-									<pre class="ml-20 mt-1 text-xs text-gray-300">{formatArgs(log.args)}</pre>
+									<pre class="mt-1 ml-20 text-xs text-gray-300">{formatArgs(log.args)}</pre>
 								{/if}
 							</div>
 						{/each}
