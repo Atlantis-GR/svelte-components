@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { BROWSER } from 'esm-env';
 	import type { AuthSettings } from '../types.js';
 	import { demoAuthSettings } from '../types.js';
 	import { initAuth } from '../context.js';
@@ -18,7 +18,7 @@
 	const authSettings = settings || demoAuthSettings;
 
 	// Initialize sync on the client so child components can access context during their onMount
-	if (browser) {
+	if (BROWSER) {
 		initAuth(authSettings, interceptorConfig);
 	}
 </script>

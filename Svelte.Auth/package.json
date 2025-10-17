@@ -36,12 +36,13 @@
 		}
 	},
 	"peerDependencies": {
-		"svelte": "^5.0.0",
-		"@sveltejs/kit": "^2.0.0"
+		"@sveltejs/kit": "^2.0.0",
+		"svelte": "^5.0.0"
 	},
 	"dependencies": {
-		"oidc-client-ts": "^3.3.0",
-		"@atlantis-gr/svelte-logging-abstractions": "1.0.0"
+		"@atlantis-gr/svelte-logging-abstractions": "1.0.0",
+		"esm-env": "^1.2.2",
+		"oidc-client-ts": "^3.3.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^6.1.0",

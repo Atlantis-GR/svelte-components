@@ -22,7 +22,7 @@ function Run($cmd, $cwd) {
     Write-Host "-> Running: $cmd`n  in $cwd" -ForegroundColor Yellow
     Push-Location $cwd
     try {
-        iex $cmd
+        Invoke-Expression $cmd
     } finally {
         Pop-Location
     }
